@@ -17,28 +17,26 @@
         <h3>First one to 5 wins 😈</h3>
 
         <div class="choices">
-            <div class="user-choice">
-                <div class="human"><span class="heart">🫀</span></div>
-                <div id="choice-display"></div>
+            <div id="user-choice" class="user-choice">
+                <div class="human"><span id="human" class="heart">🫀</span></div>
             </div>
+            
             <div class="center-display">
                 <div id="timer">
                     <button id="play-game-button" class="play-game-button">Play Game</button>
-                    
                 </div>
                 <button id="next-round-button" class="hidden">Next Round</button>
+                <button id="Rock" class="hidden">Rock</button>
+                <button id="Paper" class="hidden">Paper</button>
+                <button id="Scissors" class="hidden">Scissors</button>
             </div>
-            <div class="computer-choice">
-                <div class="computer"><span class="gear">⚙️</span></div>
-                <div id="computer-choice-display"></div>
+
+            <div id="computer-choice" class="computer-choice">
+                <div class="computer"><span id="computer" class="gear">⚙️</span></div>
             </div>
         </div>
     
-        <div id="options" class="hidden">
-            <button id="Rock">Rock</button>
-            <button id="Paper">Paper</button>
-            <button id="Scissors">Scissors</button>
-        </div>
+
 
         <div id="round-score" class="active">
             <p id="results"></p>

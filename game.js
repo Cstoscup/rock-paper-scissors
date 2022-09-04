@@ -8,26 +8,32 @@ function displayGame() {
         } else if (timeLeft === 2) {
             document.getElementById("timer").innerHTML = "✌🏻";
         } else if (timeLeft === 1) {
-            document.getElementById("timer").innerHTML = "👇🏻";
+            document.getElementById("timer").className = "hidden";
             clearInterval(timer);
-            document.getElementById("options").className = "active";
+            document.getElementById("Rock").className = "active";
+            document.getElementById("Paper").className = "active";
+            document.getElementById("Scissors").className = "active";
         }
         timeLeft = timeLeft - 1;
     }, 800);
     hesitation = setTimeout(function() {
-        document.getElementById("options").className = "hidden";
+        document.getElementById("Rock").className = "hidden";
+        document.getElementById("Paper").className = "hidden";
+        document.getElementById("Scissors").className = "hidden";
         document.getElementById("round-score").className = "active";
-        document.querySelector("#choice-display").innerHTML = "😑";
+        document.querySelector("#human").innerHTML = "😑";
         document.getElementById("timer").style.fontSize = "18px";
         displayComputerChoice("...");
     }, "5000");
 }
 
 function displayGameNext() {
+    document.getElementById("computer-choice").style.backgroundColor = "transparent";
+    document.getElementById("user-choice").style.backgroundColor = "transparent";
     document.getElementById("next-round-button").className = "hidden";
     document.getElementById("timer").style.fontSize = "96px";
-    document.querySelector("#computer-choice-display").innerHTML = "";
-    document.querySelector("#choice-display").innerHTML = "";
+    document.querySelector("#computer").innerHTML = "⚙️";
+    document.querySelector("#human").innerHTML = "🫀";
     document.getElementById("timer").innerHTML = "👊🏻";
     let timeLeft = 3;
     let timer = setInterval(function() {
@@ -36,26 +42,33 @@ function displayGameNext() {
         } else if (timeLeft === 2) {
             document.getElementById("timer").innerHTML = "✌🏻";
         } else if (timeLeft === 1) {
-            document.getElementById("timer").innerHTML = "👇🏻";
             clearInterval(timer);
-            document.getElementById("options").className = "active";
+            document.getElementById("timer").className = "hidden";
+            document.getElementById("Rock").className = "active";
+            document.getElementById("Paper").className = "active";
+            document.getElementById("Scissors").className = "active";
         }
         timeLeft = timeLeft - 1;
     }, 800);
     hesitation = setTimeout(function() {
-        document.getElementById("options").className = "hidden";
+        document.getElementById("Rock").className = "hidden";
+        document.getElementById("Paper").className = "hidden";
+        document.getElementById("Scissors").className = "hidden";
         document.getElementById("round-score").className = "active";
-        document.querySelector("#choice-display").innerHTML = "😑";
-        document.getElementById("timer").style.fontSize = "18px";
+        document.querySelector("#human").innerHTML = "😑";
+        document.getElementById("timer").style.fontSize = "24px";
         displayComputerChoice("...");
     }, "5000");
 }
 
 function displayUserChoice(event) {
+    document.getElementById("timer").className = "active";
     event.preventDefault();
-    document.getElementById("timer").style.fontSize = "18px";
+    document.getElementById("timer").style.fontSize = "24px";
     let choice = "";
-    document.getElementById("options").className = "hidden";
+    document.getElementById("Rock").className = "hidden";
+    document.getElementById("Paper").className = "hidden";
+    document.getElementById("Scissors").className = "hidden";
     clearTimeout(hesitation);
     if (this.id === "Rock") {
         choice = "👊🏻";
@@ -64,7 +77,7 @@ function displayUserChoice(event) {
     } else {
         choice = "✂️";
     }
-    document.querySelector("#choice-display").innerHTML = choice;
+    document.querySelector("#human").innerHTML = choice;
     displayComputerChoice(choice);
 }
 
@@ -78,13 +91,16 @@ function displayComputerChoice(userChoice) {
     } else {
         choice = "✂️";
     }
-    document.querySelector("#computer-choice-display").innerHTML = choice;
+    document.querySelector("#computer").innerHTML = choice;
     decideWinner(userChoice, choice);
 }
 
 function decideWinner(userChoice, computerChoice) {
     if (userChoice === "...") {
+        document.getElementById("timer").className = "active";
         document.querySelector("#timer").innerHTML = "You lose!<br />Hesitation is death!";
+        document.getElementById("computer-choice").style.backgroundColor = "green";
+        document.getElementById("user-choice").style.backgroundColor = "red";
         document.getElementById("next-round-button").className = "active";
         computerWinCount++;
     }
@@ -94,26 +110,38 @@ function decideWinner(userChoice, computerChoice) {
     } else if (userChoice === "👊🏻" && computerChoice === "📄") {
         document.querySelector("#timer").innerHTML = "You lose!<br />📄 covers 👊🏻!";
         document.getElementById("next-round-button").className = "active";
+        document.getElementById("computer-choice").style.backgroundColor = "green";
+        document.getElementById("user-choice").style.backgroundColor = "red";
         computerWinCount++;
     } else if (userChoice === "👊🏻" && computerChoice === "✂️") {
         document.querySelector("#timer").innerHTML = "You win! 👊🏻 crushes ✂️!";
         document.getElementById("next-round-button").className = "active";
+        document.getElementById("computer-choice").style.backgroundColor = "red";
+        document.getElementById("user-choice").style.backgroundColor = "green";
         userWinCount++;
     } else if (userChoice === "📄" && computerChoice === "👊🏻") {
         document.querySelector("#timer").innerHTML = "You win!<br />📄 covers 👊🏻!";
         document.getElementById("next-round-button").className = "active";
+        document.getElementById("computer-choice").style.backgroundColor = "red";
+        document.getElementById("user-choice").style.backgroundColor = "green";
         userWinCount++;
     } else if (userChoice === "📄" && computerChoice === "✂️") {
         document.querySelector("#timer").innerHTML = "You lose!<br />✂️ cut 📄!";
         document.getElementById("next-round-button").className = "active";
+        document.getElementById("computer-choice").style.backgroundColor = "green";
+        document.getElementById("user-choice").style.backgroundColor = "red";
         computerWinCount++;
     } else if (userChoice === "✂️" && computerChoice === "👊🏻") {
         document.querySelector("#timer").innerHTML = "You lose!<br />👊🏻 crushes ✂️";
         document.getElementById("next-round-button").className = "active";
+        document.getElementById("computer-choice").style.backgroundColor = "green";
+        document.getElementById("user-choice").style.backgroundColor = "red";
         computerWinCount++;
     } else if (userChoice === "✂️" && computerChoice === "📄") {
         document.querySelector("#timer").innerHTML = "You win!<br />📄 cuts ✂️!";
         document.getElementById("next-round-button").className = "active";
+        document.getElementById("computer-choice").style.backgroundColor = "red";
+        document.getElementById("user-choice").style.backgroundColor = "green";
         userWinCount++;
     }
     document.querySelector("#computer-score").innerHTML = computerWinCount;
@@ -123,11 +151,12 @@ function decideWinner(userChoice, computerChoice) {
 
 function checkGameState() {
     if (computerWinCount === 5) {
-       document.querySelector("#timer").innerHTML = "You lose!<br />The computer made it to 5 points first!"
-       document.getElementById("play-again-button").className = "active";
-       document.getElementById("next-round-button").className = "hidden";
+        document.getElementById("timer").style.fontSize = "24px";
+        document.querySelector("#timer").innerHTML = "You lose!"
+        document.getElementById("play-again-button").className = "active";
+        document.getElementById("next-round-button").className = "hidden";
     } else if (userWinCount === 5) {
-        document.querySelector("#timer").innerHTML = "You win!<br />You made it to 5 points first!"
+        document.querySelector("#timer").innerHTML = "You win!"
         document.getElementById("play-again-button").className = "active";
         document.getElementById("next-round-button").className = "hidden";
     }
